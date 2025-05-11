@@ -10,6 +10,7 @@
 #include "ADF4351.h"
 #include <stdint.h>
 #include <Arduino.h>
+#include <SPI.h>
 
 enum ADF4351_Write_Error
 {
@@ -29,7 +30,8 @@ private:
     pin_size_t pin_LD;
 
 public:
-    ADF4351_Arduino(pin_size_t pin_DATA, uint8_t MUXOUT, uint8_t pin_PDBRF, uint8_t pin_CE, uint8_t pin_LE, uint8_t pin_CLK, uint8_t pin_LD);
+    // SPIClass* spiを削除
+    ADF4351_Arduino(pin_size_t pin_DATA, pin_size_t pin_MUXOUT, pin_size_t pin_PDBRF, pin_size_t pin_CE, pin_size_t pin_LE, pin_size_t pin_CLK, pin_size_t pin_LD);
     ~ADF4351_Arduino();
 
     ADF4351_Write_Error reg_write_func(uint32_t data);

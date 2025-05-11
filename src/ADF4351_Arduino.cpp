@@ -21,9 +21,6 @@
 ADF4351_Arduino::ADF4351_Arduino(pin_size_t DATA_pin, pin_size_t MUXOUT_pin, pin_size_t PDBRF_pin, pin_size_t CE_pin, pin_size_t LE_pin, pin_size_t CLK_pin, pin_size_t LD_pin)
     : pin_DATA(DATA_pin), pin_MUXOUT(MUXOUT_pin), pin_PDBRF(PDBRF_pin), pin_CE(CE_pin), pin_LE(LE_pin), pin_CLK(CLK_pin), pin_LD(LD_pin)
 {
-    
-    SPI.beginTransaction(SPISettings(14000000, MSBFIRST, SPI_MODE0));
-    SPI.begin();
     pinMode(pin_DATA, OUTPUT);
     pinMode(pin_MUXOUT, INPUT);
     pinMode(pin_PDBRF, OUTPUT);
@@ -31,25 +28,27 @@ ADF4351_Arduino::ADF4351_Arduino(pin_size_t DATA_pin, pin_size_t MUXOUT_pin, pin
     pinMode(pin_LE, OUTPUT);
     pinMode(pin_CLK, OUTPUT);
     pinMode(pin_LD, INPUT);
-
-    // Initialize ADF4351
-    ADF4351 adf4351;
 }
 
 ADF4351_Arduino::~ADF4351_Arduino()
 {
 }
 
+//Write function for Arduino
 ADF4351_Write_Error ADF4351_Arduino::reg_write_func(uint32_t data)
 {
-    digitalWrite(pin_LE, LOW); // チップセレクトをアクティブに
-    SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
-    SPI.transfer((data >> 24) & 0xFF); // 上位8ビットを送信
-    SPI.transfer((data >> 16) & 0xFF); // 次の8ビットを送信
-    SPI.transfer((data >> 8) & 0xFF);  // 次の8ビットを送信
-    SPI.transfer(data & 0xFF);         // 下位8ビットを送信
-    SPI.endTransaction();
-    digitalWrite(pin_LE, HIGH); // チップセレクトを非アクティブに
+    digitalWrite(pin_LE, LOW); // LEをLOWに
+
+    // 32ビットをMSBファーストでDATAピンに出力
+    for (int i = 31; i >= 0; --i) {
+        digitalWrite(pin_CLK, LOW);
+        digitalWrite(pin_DATA, (data >> i) & 0x01);
+        delayMicroseconds(1); // 必要に応じて調整
+        digitalWrite(pin_CLK, HIGH);
+        delayMicroseconds(1); // 必要に応じて調整
+    }
+
+    digitalWrite(pin_LE, HIGH); // LEをHIGHに
 
     return ADF4351_WRITE_SUCCESS;
 }
@@ -412,4 +411,3 @@ ADF4351_Write_Error ADF4351_Arduino::write_LD_PIN_MODE(uint8_t LD_PIN_MODE) {
     }
     return write_reg5();
 }
-

@@ -34,6 +34,10 @@ public:
     ADF4351_Arduino(pin_size_t pin_DATA, pin_size_t pin_MUXOUT, pin_size_t pin_PDBRF, pin_size_t pin_CE, pin_size_t pin_LE, pin_size_t pin_CLK, pin_size_t pin_LD);
     ~ADF4351_Arduino();
 
+    // デバイス有効化/無効化
+    void enable();
+    void disable();
+
     ADF4351_Write_Error reg_write_func(uint32_t data);
 
     // writer register functions

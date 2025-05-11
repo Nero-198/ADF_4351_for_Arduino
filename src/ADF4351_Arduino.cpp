@@ -34,6 +34,16 @@ ADF4351_Arduino::~ADF4351_Arduino()
 {
 }
 
+void ADF4351_Arduino::enable()
+{
+    digitalWrite(pin_CE, HIGH);
+}
+
+void ADF4351_Arduino::disable()
+{
+    digitalWrite(pin_CE, LOW);
+}
+
 //Write function for Arduino
 ADF4351_Write_Error ADF4351_Arduino::reg_write_func(uint32_t data)
 {

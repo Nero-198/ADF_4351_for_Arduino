@@ -45,7 +45,7 @@ void ADF4351_Arduino::disable()
 }
 
 //Write function for Arduino
-ADF4351_Write_Error ADF4351_Arduino::reg_write_func(uint32_t data)
+ADF4351_Write_Error ADF4351_Arduino::output_func(uint32_t data)
 {
     digitalWrite(pin_LE, LOW); // LEをLOWに
 
@@ -72,7 +72,7 @@ ADF4351_Write_Error ADF4351_Arduino::write_reg0()
         return ADF4351_WRITE_ERROR;
     }
     
-    return reg_write_func(reg0.reg0_data);
+    return output_func(reg0.reg0_data);
 }
 
 ADF4351_Write_Error ADF4351_Arduino::write_reg1()
@@ -83,7 +83,7 @@ ADF4351_Write_Error ADF4351_Arduino::write_reg1()
         reg1.reg1_t.CONT_BIT = 0x01;
         return ADF4351_WRITE_ERROR;
     }
-    return reg_write_func(reg1.reg1_data);
+    return output_func(reg1.reg1_data);
 }
 
 ADF4351_Write_Error ADF4351_Arduino::write_reg2()
@@ -94,7 +94,7 @@ ADF4351_Write_Error ADF4351_Arduino::write_reg2()
         reg2.reg2_t.CONT_BIT = 0x02;
         return ADF4351_WRITE_ERROR;
     }
-    return reg_write_func(reg2.reg2_data);
+    return output_func(reg2.reg2_data);
 }
 
 ADF4351_Write_Error ADF4351_Arduino::write_reg3()
@@ -105,7 +105,7 @@ ADF4351_Write_Error ADF4351_Arduino::write_reg3()
         reg3.reg3_t.CONT_BIT = 0x03;
         return ADF4351_WRITE_ERROR;
     }
-    return reg_write_func(reg3.reg3_data);
+    return output_func(reg3.reg3_data);
 }
 
 ADF4351_Write_Error ADF4351_Arduino::write_reg4()
@@ -116,7 +116,7 @@ ADF4351_Write_Error ADF4351_Arduino::write_reg4()
         reg4.reg4_t.CONT_BIT = 0x04;
         return ADF4351_WRITE_ERROR;
     }
-    return reg_write_func(reg4.reg4_data);
+    return output_func(reg4.reg4_data);
 }
 
 ADF4351_Write_Error ADF4351_Arduino::write_reg5()
@@ -127,7 +127,7 @@ ADF4351_Write_Error ADF4351_Arduino::write_reg5()
         reg5.reg5_t.CONT_BIT = 0x05;
         return ADF4351_WRITE_ERROR;
     }
-    return reg_write_func(reg5.reg5_data);
+    return output_func(reg5.reg5_data);
 }
 
 

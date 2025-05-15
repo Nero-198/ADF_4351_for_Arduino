@@ -38,7 +38,7 @@ public:
     void enable();
     void disable();
 
-    ADF4351_Write_Error reg_write_func(uint32_t data);
+    ADF4351_Write_Error output_func(uint32_t data);
 
     // writer register functions
     ADF4351_Write_Error write_reg0();

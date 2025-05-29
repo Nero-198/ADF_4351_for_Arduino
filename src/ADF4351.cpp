@@ -80,6 +80,14 @@ uint8_t ADF4351::reg_init()
 
 
 // Setters
+
+/**
+ * @brief set FRAC value
+ * 
+ * @param FRAC 
+ * @return ADF4351_Error 
+ * @details range is 0-4095
+ */
 ADF4351_Error ADF4351::set_FRAC(uint16_t FRAC) {
     if (FRAC > 0xFFF) return ADF4351_INVALID_VALUE;
     reg0.reg0_t.FRAC = FRAC;

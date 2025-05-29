@@ -1,13 +1,20 @@
 {
     "cSpell.words": [
+        "cmsis",
         "DGND",
         "DVDD",
+        "earlephilhower",
         "intejer",
+        "mbed",
         "MSBFIRST",
         "MTLD",
         "MUXOUT",
+        "nguyenmanhthao",
         "PDBRF",
-        "RDIV"
+        "picoprobe",
+        "raspberrypi",
+        "RDIV",
+        "rpipico"
     ],
     "files.associations": {
         "*.c": "c",

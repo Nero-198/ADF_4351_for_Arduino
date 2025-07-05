@@ -34,14 +34,23 @@ ADF4351_Arduino::~ADF4351_Arduino()
 {
 }
 
-void ADF4351_Arduino::enable()
+void ADF4351_Arduino::set_CE()
 {
     digitalWrite(pin_CE, HIGH);
 }
 
-void ADF4351_Arduino::disable()
+void ADF4351_Arduino::unset_CE()
 {
     digitalWrite(pin_CE, LOW);
+}
+
+void ADF4351_Arduino::set_PDBRF()
+{
+    digitalWrite(pin_PDBRF, HIGH);
+}
+void ADF4351_Arduino::unset_PDBRF()
+{
+    digitalWrite(pin_PDBRF, LOW);
 }
 
 //Write function for Arduino

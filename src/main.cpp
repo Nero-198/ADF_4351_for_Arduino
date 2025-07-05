@@ -2,22 +2,24 @@
 #include "ADF4351_Arduino.h"
 #include "CommandHandler.h"
 
-#define DATA_PIN 31
-#define MUXOUT_PIN 27
-#define PDBRF_PIN 25
-#define CE_PIN 34
-#define LE_PIN 32
-#define CLK_PIN 29
-#define LD_PIN 26
+#define DATA_PIN 3
+#define MUXOUT_PIN 4
+#define PDBRF_PIN 6
+#define CE_PIN 5
+#define LE_PIN 7
+#define CLK_PIN 2
+#define LD_PIN 8
+#define LED_PIN 25
 
 ADF4351_Arduino adf4351(DATA_PIN, MUXOUT_PIN, PDBRF_PIN, CE_PIN, LE_PIN, CLK_PIN, LD_PIN);
 CommandHandler cmdHandler(adf4351);
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("ADF4351 Test Start");
 
-  adf4351.enable(); // デバイス有効化
+  adf4351.set_CE(); // デバイス有効化
+  pinMode(LED_PIN, OUTPUT); // LEDピンの設定
 delay(1000); // デバイスが安定するまで待機
 
 /*
@@ -29,7 +31,12 @@ delay(1000); // デバイスが安定するまで待機
 */
 
   // ADF4351の初期化
-  adf4351.output_func(0x00000000); // 初期状態で全てのレジスタをクリア
+  adf4351.output_func(0x00400005); // 初期状態で全てのレジスタをクリア
+  adf4351.output_func(0x00802224);
+  adf4351.output_func(0x00800003);
+  adf4351.output_func(0x08004602);
+  adf4351.output_func(0x0000CE21);
+  adf4351.output_func(0x00180640);
   delay(10);
 
 //初期化
@@ -40,9 +47,20 @@ adf4351.write_REFERENCE_DOUBLER(0); // 参照倍増器を無効化
 adf4351.write_R_COUNTER(1); // Rカウンタを1に設定
 adf4351.write_RDIV2(0); // RDIV2を無効化
 
+//RF出力の有効化
+adf4351.set_PDBRF(); // PDBRFピンをHIGHに設定
+
 }
 
 void loop() {
+  int LED_state = LOW;
+  while (1)
+  {
+  //adf4351.output_func(0xAAAAAAAA); // 初期状態で全てのレジスタをクリア
+  delay(100);
+  (LED_state = LOW)? digitalWrite(LED_PIN, HIGH):digitalWrite(LED_PIN, LOW);
+
+  /*
   static String inputString = "";
   static bool stringComplete = false;
 
@@ -61,5 +79,7 @@ void loop() {
     cmdHandler.handleCommand(inputString);
     inputString = "";
     stringComplete = false;
+  }
+    */
   }
 }

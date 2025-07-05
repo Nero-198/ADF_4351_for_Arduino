@@ -35,8 +35,11 @@ public:
     ~ADF4351_Arduino();
 
     // デバイス有効化/無効化
-    void enable();
-    void disable();
+    void set_CE();
+    void unset_CE();
+    //PDBRF RF出力の有効化/無効化
+    void set_PDBRF();
+    void unset_PDBRF();
 
     ADF4351_Write_Error output_func(uint32_t data);
 

@@ -96,11 +96,11 @@ void CommandHandler::handleCommand(const String& commandLine) {
         err = adf4351.write_FEEDBACK_SELECT((uint8_t)value);
     } else if (command.equalsIgnoreCase("LD_PIN_MODE")) {
         err = adf4351.write_LD_PIN_MODE((uint8_t)value);
-    } else if (command.equalsIgnoreCase("ENABLE")) {
-        adf4351.enable();
+    } else if (command.equalsIgnoreCase("SET_CE_HIGH")) {
+        adf4351.set_CE();
         err = ADF4351_WRITE_SUCCESS;
-    } else if (command.equalsIgnoreCase("DISABLE")) {
-        adf4351.disable();
+    } else if (command.equalsIgnoreCase("SET_CE_LOW")) {
+        adf4351.unset_CE();
         err = ADF4351_WRITE_SUCCESS;
     } else {
         recognized = false;

@@ -56,30 +56,24 @@ void loop() {
   int LED_state = LOW;
   while (1)
   {
-  //adf4351.output_func(0xAAAAAAAA); // 初期状態で全てのレジスタをクリア
-  delay(100);
-  (LED_state = LOW)? digitalWrite(LED_PIN, HIGH):digitalWrite(LED_PIN, LOW);
 
-  /*
   static String inputString = "";
   static bool stringComplete = false;
-
+  
   while (Serial.available()) {
-    char inChar = (char)Serial.read();
-    if (inChar == '\n' || inChar == '\r') {
-      if (inputString.length() > 0) {
-        stringComplete = true;
-      }
-    } else {
-      inputString += inChar;
+          char inChar = (char)Serial.read();
+          if (inChar == '\n' || inChar == '\r') {
+            if (inputString.length() > 0) {
+              stringComplete = true;
+          }
+      } else {
+            inputString += inChar;
+        }
     }
-  }
-
-  if (stringComplete) {
-    cmdHandler.handleCommand(inputString);
-    inputString = "";
-    stringComplete = false;
-  }
-    */
+      if (stringComplete) {
+          cmdHandler.handleCommand(inputString);
+          inputString = "";
+          stringComplete = false;
+      }
   }
 }
